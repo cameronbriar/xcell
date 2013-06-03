@@ -1,0 +1,28 @@
+--defines
+qual|plus
+age1|Q1.check('0-9')
+age2|Q1.check('10-19')
+age3|Q1.check('20-29')
+age4|Q1.check('30-39')
+Male|Q2.r1
+Female|Q2.r2
++
+--qualified
+# = Qualified
+qual|5000
++
+--general
+# = Age
+age1|10
+age2|10
+age3|10
+age4|10
+
+# = Gender
+Male|100
+Female|100
+
+# = Gender / Age|age1|age2|age3|age4
+Male|inf|inf|inf|inf
+Female|inf|inf|inf|inf
++
