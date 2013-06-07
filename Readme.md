@@ -170,14 +170,13 @@ Add this to your .bashrc
     +
 
     # when you build this 
-    #    _xcell build quota.txt_
+    #   > xcell build quota.txt
 
     # everything is fine..
 
-    # but when you convert it! - you need to pass the __- s__ flag
+    # but when you convert it! - you need to pass the -s flag
 
     # (this accounts for the empty cells) - try it both ways and see the difference
-    # you'll get it
     
 ### Fun Tips
 
