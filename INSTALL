@@ -1,0 +1,2 @@
+# add to your .bashrc
+alias xcell='python ~/home/user/xcell/xcell.py "$@"'

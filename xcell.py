@@ -26,7 +26,7 @@ class XC(object):
         return
 
     def build(self, filename):
-        filename = 'quota.txt' if filename == '' else filename.split(".")[0] + ".txt"
+        filename = 'xcell.txt' if filename == '' else filename.split(".")[0] + ".txt"
         sheets  = []
         markers = []
         with open(filename, 'r') as f:
@@ -57,12 +57,12 @@ class XC(object):
                     for c, info in enumerate(data):
                         info = info if not info.isdigit() else int(info)
                         s.write(r, c, info)
-        quota.save('xquota.xls')
-        print 'Saved to xquota.xls'
+        quota.save('xcell.xls')
+        print 'Saved to xcell.xls'
         return
 
     def convert(self, filename, flag=False):
-        filename = 'quota.xls' if filename == '' else filename.split('.')[0] + '.xls'
+        filename = 'xcell.xls' if filename == '' else filename.split('.')[0] + '.xls'
         quota  = xlrd.open_workbook(filename)
         sheets = [str(sheet) for sheet in quota.sheet_names()]
         data   = []
@@ -85,9 +85,9 @@ class XC(object):
                         row_data.append(val)
                 data.append(self.CD.join(row_data))
             data.append(self.ES)
-            with open('xquota.txt', 'w') as f:
+            with open('xcell.txt', 'w') as f:
                 f.write('\n'.join(data))
-        print filename, 'has been converted to xquota.txt!'
+        print filename, 'has been converted to xcell.txt!'
         return
 
 
@@ -107,7 +107,7 @@ def main():
         2) CONVERT (xls -> txt)
         >>  """)
         filename = raw_input("""
-        Specify filename (default 'quota'):
+        Specify filename (default 'xcell'):
         """)
 
         options['1'] = options['']  = options['build']
@@ -119,8 +119,8 @@ def main():
 
         filename = raw_input("""
         Would you like to specify a filename?
-        (Default Input: quota.xls/quota.txt)
-        (Default Output: xquota.xls/xquota.txt)
+        (Default Input: xcell.xls/xcell.txt)
+        (Default Output: xcell.xls/xcell.txt)
         """)
 
         filename = filename.split('.')[0]
