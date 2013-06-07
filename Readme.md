@@ -14,14 +14,15 @@ Add this to your .bashrc
 ### Flags
 
     -s    -    includes blank cells
-*   -c    -    set delimiter for column separation (default: |  )
-*   -n    -    set delimiter for sheet name        (default: -- )
-*   -e    -    set delimiter for end of sheet      (default: +  )
-
-*   -x    -    set underscore _ separated list of delimiters (default: |_--_+ )
-
-
-    *     -    not yet available - see default delimiters
+    -c    =    set delimiter for column separation (default: |  )
+    -n    =    set delimiter for sheet name        (default: -- )
+    -e    =    set delimiter for end of sheet      (default: +  )
+ 
+    -x    =    set underscore _ separated list of delimiters (default: |_--_+ )
+ 
+ 
+     -    flag is available
+     =    flag is not available - see default delimiters
 
 ## Examples
 
@@ -199,6 +200,8 @@ Add this to your .bashrc
 
      # For example: xcell build some_file.txt -f
      # Output: some_file.xls
+
+     # not yet working
 
 ### Issues
 
