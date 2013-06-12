@@ -110,7 +110,29 @@ def main():
 
     available_flags['single'] = ['-s', '-f', '-o'] # flags with no value following
 
-    if argCount == 3:
+    if argCount == 1:
+        task = raw_input("""
+        Choose a task:
+        1) BUILD   (txt -> xls)
+        2) CONVERT (xls -> txt)
+        >>  """)
+
+        filename = raw_input("""
+        Specify filename (default 'xcell.(txt|xls)'):
+        """)
+
+        task = 'build' if task == 1 else 'convert'
+
+    elif argCount == 2:
+        arg = sys.argv[1]
+
+        filename = raw_input("""
+        Would you like to specify a filename?
+        (Default Input: quota.xls/quota.txt)
+        (Default Output: xquota.xls/xquota.txt)
+        """)
+
+    elif argCount == 3:
         _, task, filename = sys.argv
 
     elif argCount >= 4:
