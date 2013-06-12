@@ -121,7 +121,7 @@ def main():
         Specify filename (default 'xcell.(txt|xls)'):
         """)
 
-        task = 'build' if task == 1 else 'convert'
+        task = 'build' if task in ['1', ''] else 'convert'
 
     elif argCount == 2:
         arg = sys.argv[1]
@@ -169,11 +169,8 @@ def main():
         'build'   : lambda filename:        xc.build(filename),
         'compile' : lambda sheets, markers: xc.compile(sheets, markers),
         'convert' : lambda filename:        xc.convert(filename),
-        'o'       : lambda filename:        os.system('cat ' + filename)
+        'o'       : lambda filename:        os.system('cat ' + filename),
     }
-
-    options['1'] = options['']  = options['build']
-    options['2'] = options['convert']
 
     options[task](filename)
 
