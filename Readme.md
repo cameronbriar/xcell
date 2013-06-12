@@ -216,8 +216,6 @@ The following Python packages are required: __xlwt__ and __xlrd__
      # For example: xcell build some_file.txt -f
      # Output: some_file.xls
 
-     # not yet working
-
 ### Issues
 
     See Issues
