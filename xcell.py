@@ -156,11 +156,10 @@ def main():
     options[task](filename)
 
     if available_flags['-o']:
-        filename = filename.split('.')[0]
+        filename = 'xcell'
         if available_flags['-f']:
             filename = xc.OUT
         if task == 'build':
-            print filename
             options['o'](filename + ".xls")
         else:
             options['o'](filename + ".txt")
