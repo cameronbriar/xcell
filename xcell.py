@@ -141,6 +141,7 @@ def main():
             xc.WRITE_BLANKS = True
     else:
         print '\nUsage: python xcell.py <build|convert> [filename]'
+        sys.exit(1)
 
     options = {
         'build'   : lambda filename:        xc.build(filename),
