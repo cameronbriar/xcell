@@ -2,7 +2,7 @@
 
 Add this to your .bashrc
 
-    alias xcell='python ~/home/user/xcell/xcell.py "$@"'
+    alias xcell='python /home/user/xcell/xcell.py "$@"'
 
 # Usage
 
@@ -33,6 +33,11 @@ The following Python packages are required: __xlwt__ and __xlrd__
 
           tab  to use TAB as a delimiter, simply use 'tab' as the keyword
                (e.g.   xcell build file.txt -x tab_--_+   )
+
+          delimiters
+               if you adjust the delimiters, you will need to account for them 
+               each time you build or convert
+
 
 ## Examples
 
