@@ -19,15 +19,17 @@ The following Python packages are required: __xlwt__ and __xlrd__
 ### Flags
 
     -s    -    includes blank cells
-    -c    =    set delimiter for column separation (default: |  )
-    -n    =    set delimiter for sheet name        (default: -- )
-    -e    =    set delimiter for end of sheet      (default: +  )
+    -c    -    set delimiter for column separation (default: |  )
+    -n    -    set delimiter for sheet name        (default: -- )
+    -e    -    set delimiter for end of sheet      (default: +  )
  
-    -x    =    set underscore _ separated list of delimiters (default: |_--_+ )
+    -x    -    set underscore _ separated list of delimiters (default: |_--_+ )
+    
+    -o    -    prints to std.out
  
- 
-     -    flag is available
-     =    flag is not available - see default delimiters
+    Note:
+          -x   overrides -c -n & -e
+          -o   allows you to pipe result (e.g.    xcell build file.txt -o | vim -  )
 
 ## Examples
 
