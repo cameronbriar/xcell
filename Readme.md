@@ -13,6 +13,7 @@ Add this to your .bashrc
 
 ### Dependencies
 The following Python packages are required: __xlwt__ and __xlrd__
+
     pip install xlwt
     pip install xlrd
 
