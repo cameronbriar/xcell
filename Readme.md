@@ -30,7 +30,7 @@ The following Python packages are required: __xlwt__ and __xlrd__
  
     Note:
           -x   overrides -c -n & -e
-          -o   allows you to pipe result (e.g.    xcell build file.txt -o | vim -  )
+          -o   allows you to pipe result (e.g.    xcell convert file.xls -o | vim -  )
 
           tab  to use TAB as a delimiter, simply use 'tab' as the keyword
                (e.g.   xcell build file.txt -x tab_--_+   )
