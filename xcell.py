@@ -9,24 +9,27 @@ Run: python xcell.py
 See: README.md
 """
 
-import sys
+import os, sys
 import xlwt, xlrd
 
 
 SHEETNAME_DELIM = "--"
 COLUMN_DELIM    = "|"
 ENDSHEET_DELIM  = "+"
+OUTPUT_FILENAME = 'xcell'
+BLANK_CELL_FLAG = False
 
 class XC(object):
 
     def __init__(self):
-        self.SD = SHEETNAME_DELIM
-        self.CD = COLUMN_DELIM
-        self.ES = ENDSHEET_DELIM
+        self.SD  = SHEETNAME_DELIM
+        self.CD  = COLUMN_DELIM
+        self.ES  = ENDSHEET_DELIM
+        self.OUT = OUTPUT_FILENAME
+        self.WRITE_BLANKS = BLANK_CELL_FLAG
         return
 
-    def build(self, filename):
-        filename = 'xcell.txt' if filename == '' else filename.split(".")[0] + ".txt"
+    def build(self, filename='xcell.txt'):
         sheets  = []
         markers = []
         with open(filename, 'r') as f:
@@ -57,15 +60,14 @@ class XC(object):
                     for c, info in enumerate(data):
                         info = info if not info.isdigit() else int(info)
                         s.write(r, c, info)
-        quota.save('xcell.xls')
-        print 'Saved to xcell.xls'
+        quota.save(self.OUT + ".xls")
         return
 
-    def convert(self, filename, flag=False):
-        filename = 'xcell.xls' if filename == '' else filename.split('.')[0] + '.xls'
+    def convert(self, filename='xcell.xls'):
         quota  = xlrd.open_workbook(filename)
         sheets = [str(sheet) for sheet in quota.sheet_names()]
         data   = []
+        flag   = self.WRITE_BLANKS
         for sheet in sheets:
             data.append(self.SD + sheet)
             s = quota.sheet_by_name(sheet)
@@ -85,58 +87,82 @@ class XC(object):
                         row_data.append(val)
                 data.append(self.CD.join(row_data))
             data.append(self.ES)
-            with open('xcell.txt', 'w') as f:
+            with open(self.OUT + ".txt", 'w') as f:
                 f.write('\n'.join(data))
-        print filename, 'has been converted to xcell.txt!'
         return
 
 
 def main():
-    xc = XC()
-    options = {
-        'build'   : lambda filename:             xc.build(filename),
-        'compile' : lambda sheets, markers:      xc.convert(sheets, markers),
-        'convert' : lambda filename, flag=False: xc.convert(filename, flag)
-    }
-
     argCount = len(sys.argv)
-    if argCount == 1:
-        task = raw_input("""
-        Choose a task:
-        1) BUILD   (txt -> xls)
-        2) CONVERT (xls -> txt)
-        >>  """)
-        filename = raw_input("""
-        Specify filename (default 'xcell'):
-        """)
+    task, filename = "", ""
+    options = {}
 
-        options['1'] = options['']  = options['build']
-        options['2'] = options['convert']
+    xc = XC()
 
-        options[task](filename)
-    elif argCount == 2:
-        arg = sys.argv[1]
+    available_flags = {}
+    available_flags["-s"] = None
+    available_flags["-c"] = None
+    available_flags["-n"] = None
+    available_flags["-e"] = None
+    available_flags["-x"] = None
+    available_flags["-f"] = None
+    available_flags["-o"] = None
 
-        filename = raw_input("""
-        Would you like to specify a filename?
-        (Default Input: xcell.xls/xcell.txt)
-        (Default Output: xcell.xls/xcell.txt)
-        """)
+    available_flags['single'] = ['-s', '-f', '-o'] # flags with no value following
 
-        filename = filename.split('.')[0]
-
-        options[arg](filename)
-    elif argCount == 3:
+    if argCount == 3:
         _, task, filename = sys.argv
-        options[task](filename)
-    elif argCount == 4:
-        _, task, filename, flag = sys.argv
-        if task != 'convert':
-            print 'No flags are available for BUILDING, you must have meant CONVERT - Try again!'
+
+    elif argCount >= 4:
+        _, task, filename = sys.argv[:3]
+        flags = sys.argv[3:]
+
+        for i, flag in enumerate(flags):
+            if flag in available_flags['single']:
+                available_flags[flag] = True
+            else:
+                if flag in available_flags.keys():
+                    available_flags[flag] = flags[i + 1]
+
+        if available_flags['-x']:
+            xc.CD, xc.SD, xc.ES = available_flags['-x'].replace('tab', '\t').split('_')
         else:
-            options[task](filename, True)
+            if available_flags['-c']:
+                xc.CD = available_flags['-c'].replace('tab', '\t')
+            if available_flags['-n']:
+                xc.SD = available_flags['-n']
+            if available_flags['-e']:
+                xc.ES = available_flags['e']
+
+        if available_flags['-f']:
+            xc.OUT = filename.split('.')[0]
+
+        if available_flags['-s']:
+            xc.WRITE_BLANKS = True
     else:
         print '\nUsage: python xcell.py <build|convert> [filename]'
+
+    options = {
+        'build'   : lambda filename:        xc.build(filename),
+        'compile' : lambda sheets, markers: xc.compile(sheets, markers),
+        'convert' : lambda filename:        xc.convert(filename),
+        'o'       : lambda filename:        os.system('cat ' + filename)
+    }
+
+    options['1'] = options['']  = options['build']
+    options['2'] = options['convert']
+
+    options[task](filename)
+
+    if available_flags['-o']:
+        filename = filename.split('.')[0]
+        if available_flags['-f']:
+            filename = xc.OUT
+        if task == 'build':
+            print filename
+            options['o'](filename + ".xls")
+        else:
+            options['o'](filename + ".txt")
     return
 
 if __name__ == '__main__': sys.exit(main())
