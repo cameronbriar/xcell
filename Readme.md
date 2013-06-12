@@ -11,6 +11,11 @@ Add this to your .bashrc
     xcell build workbook.txt            # txt -> xls
     xcell convert workbook.xls [-s]     # xls -> txt
 
+### Dependencies
+The following Python packages are required: __xlwt__ and __xlrd__
+    pip install xlwt
+    pip install xlrd
+
 ### Flags
 
     -s    -    includes blank cells
