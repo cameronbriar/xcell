@@ -182,6 +182,10 @@ def main():
             options['o'](filename + ".xls")
         else:
             options['o'](filename + ".txt")
+    else:
+        filename = 'xcell' if not available_flags['-f'] else xc.OUT
+        extension = '.xls' if task == 'build' else '.txt'
+        print 'OUTPUT:', filename + extension
     return
 
 if __name__ == '__main__': sys.exit(main())
