@@ -154,7 +154,7 @@ def main():
             if available_flags['-n']:
                 xc.SD = available_flags['-n']
             if available_flags['-e']:
-                xc.ES = available_flags['e']
+                xc.ES = available_flags['-e']
 
         if available_flags['-f']:
             xc.OUT = filename.split('.')[0]
