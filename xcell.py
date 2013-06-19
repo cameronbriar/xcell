@@ -9,8 +9,10 @@ Run: python xcell.py
 See: README.md
 """
 
-import os, sys
-import xlwt, xlrd
+import os
+import sys
+import xlwt
+import xlrd
 
 
 SHEETNAME_DELIM = "--"
@@ -27,7 +29,6 @@ class XC(object):
         self.ES  = ENDSHEET_DELIM
         self.OUT = OUTPUT_FILENAME
         self.WRITE_BLANKS = BLANK_CELL_FLAG
-        return
 
     def build(self, filename='xcell.txt'):
         sheets  = []
@@ -61,7 +62,6 @@ class XC(object):
                         info = info if not info.isdigit() else int(info)
                         s.write(r, c, info)
         quota.save(self.OUT + ".xls")
-        return
 
     def convert(self, filename='xcell.xls'):
         quota  = xlrd.open_workbook(filename)
@@ -89,11 +89,10 @@ class XC(object):
             data.append(self.ES)
             with open(self.OUT + ".txt", 'w') as f:
                 f.write('\n'.join(data))
-        return
 
 
 def main():
-    argCount = len(sys.argv)
+    arg_count = len(sys.argv)
     task, filename = "", ""
     options = {}
 
@@ -108,9 +107,9 @@ def main():
     available_flags["-f"] = None
     available_flags["-o"] = None
 
-    available_flags['single'] = ['-s', '-f', '-o'] # flags with no value following
+    available_flags['single'] = ['-s', '-f', '-o']  # flags with no value following
 
-    if argCount == 1:
+    if arg_count == 1:
         task = raw_input("""
         Choose a task:
         1) BUILD   (txt -> xls)
@@ -123,7 +122,7 @@ def main():
 
         task = 'build' if task in ['1', ''] else 'convert'
 
-    elif argCount == 2:
+    elif arg_count == 2:
         arg = sys.argv[1]
 
         filename = raw_input("""
@@ -132,10 +131,10 @@ def main():
         (Default Output: xquota.xls/xquota.txt)
         """)
 
-    elif argCount == 3:
+    elif arg_count == 3:
         _, task, filename = sys.argv
 
-    elif argCount >= 4:
+    elif arg_count >= 4:
         _, task, filename = sys.argv[:3]
         flags = sys.argv[3:]
 
@@ -143,7 +142,7 @@ def main():
             if flag in available_flags['single']:
                 available_flags[flag] = True
             else:
-                if flag in available_flags.keys():
+                if flag in available_flags:
                     available_flags[flag] = flags[i + 1]
 
         if available_flags['-x']:
