@@ -178,7 +178,7 @@ def main():
     extension = '.xls' if task == 'build' else '.txt'
 
     if available_flags['-o']:
-            options['o'](filename + extension)
+        options['o'](filename + extension)
     else:
         print 'OUTPUT:', filename + extension
 
