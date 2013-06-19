@@ -174,18 +174,13 @@ def main():
 
     options[task](filename)
 
+    filename = 'xcell' if not available_flags['-f'] else xc.OUT
+    extension = '.xls' if task == 'build' else '.txt'
+
     if available_flags['-o']:
-        filename = 'xcell'
-        if available_flags['-f']:
-            filename = xc.OUT
-        if task == 'build':
-            options['o'](filename + ".xls")
-        else:
-            options['o'](filename + ".txt")
+            options['o'](filename + extension)
     else:
-        filename = 'xcell' if not available_flags['-f'] else xc.OUT
-        extension = '.xls' if task == 'build' else '.txt'
         print 'OUTPUT:', filename + extension
-    return
+
 
 if __name__ == '__main__': sys.exit(main())
