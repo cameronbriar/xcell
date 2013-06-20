@@ -123,7 +123,7 @@ def main():
         task = 'build' if task in ['1', ''] else 'convert'
 
     elif arg_count == 2:
-        arg = sys.argv[1]
+        task = sys.argv[1]
 
         filename = raw_input("""
         Would you like to specify a filename?
@@ -166,7 +166,6 @@ def main():
 
     options = {
         'build'   : lambda filename:        xc.build(filename),
-        'compile' : lambda sheets, markers: xc.compile(sheets, markers),
         'convert' : lambda filename:        xc.convert(filename),
         'o'       : lambda filename:        os.system('cat ' + filename),
     }
