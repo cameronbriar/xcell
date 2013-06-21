@@ -7,11 +7,11 @@ Purpose:
  -- To rid Excel from the pipeline
 
 Functions:
- -- BUILD: Convert TXT document to XLS workbook
+ -- BUILD:   Convert TXT document to XLS workbook
  -- CONVERT: Convert XLS workbook to TXT document.
 
 Run:
- -- python xcell.py
+ -- python xcell.py <build|convert> filename.<txt|xls>
 
 Info:
  -- See README.md
