@@ -2,11 +2,19 @@
 
 """
 x Cell -- No more cells.
-Tool to rid Excel from the pipeline.
 
-Run: python xcell.py
+Purpose:
+ -- To rid Excel from the pipeline
 
-See: README.md
+Functions:
+ -- BUILD: Convert TXT document to XLS workbook
+ -- CONVERT: Convert XLS workbook to TXT document.
+
+Run:
+ -- python xcell.py
+
+Info:
+ -- See README.md
 """
 
 import os
